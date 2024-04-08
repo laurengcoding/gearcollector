@@ -5,12 +5,14 @@
 
 {% for g in gear %}
   <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ g.type }}</span>
-      <p>Brand: {{ g.brand }}</p>
-      <p>Make and Model: {{ g.make }} - {{ g.model }}</p>
-      <p>Color: {{ g.colour }}</p>
-    </div>
+    <a href="{% url 'detail' g.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ g.type }}</span>
+        <p>Brand: {{ g.brand }}</p>
+        <p>{{ g.make }} - {{ g.model }}</p>
+        <p>Color: {{ g.colour }}</p>
+      </div>
+    </a>
   </div>
 {% endfor %}
 
