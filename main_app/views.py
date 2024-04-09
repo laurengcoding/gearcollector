@@ -1,32 +1,6 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Gear
-
-gear = [
-    {'brand': 'Fender',
-     'make': 'Precision',
-     'type': 'Bass',
-     'model': 'Professional Series II',
-     'colour': 'Olive Green'
-     },
-    {'brand': 'Fender',
-     'make': 'Jazz',
-     'type': 'Bass',
-     'model': 'Marcus Miller Signature',
-     'colour': 'Brown and Black'
-     },
-    {'brand': 'Fender',
-     'make': 'Jazzmaster',
-     'type': 'Electric Guitar',
-     'model': 'J Mascis Signature',
-     'colour': 'Gold and Cream'
-     },
-    {'brand': 'Fender',
-     'make': 'Stratocaster',
-     'type': 'Electric Guitar',
-     'model': 'Unknown',
-     'colour': 'Cream'
-     }
-]
 
 def home(request):
     return render(request, 'home.html')
@@ -45,3 +19,15 @@ def gear_detail(request, gear_id):
     return render(request, 'gear/detail.html', {
         'g': g
     })
+
+class GearCreate(CreateView):
+    model = Gear
+    fields = '__all__'
+
+class GearUpdate(UpdateView):
+    model = Gear
+    fields = '__all__'
+
+class GearDelete(DeleteView):
+    model = Gear
+    success_url = '/gear'

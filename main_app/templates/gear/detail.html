@@ -10,6 +10,10 @@
           <p>D{{ g.make }} - {{ g.model }}</p>
           <p>Color: {{ g.colour }}</p>
         </div>
+        <div class="card-action">
+          <a href="{% url 'gear_update' g.id %}">Edit Gear</a>
+          <a href="{% url 'gear_delete' g.id %}">Delete Gear</a>
+        </div>
     </div>
 </a>
 
