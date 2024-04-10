@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
 from .models import Gear
+
+from .forms import ServicedForm
 
 def home(request):
     return render(request, 'home.html')
@@ -16,9 +19,21 @@ def gear_index(request):
 
 def gear_detail(request, gear_id):
     g = Gear.objects.get(id=gear_id)
+    serviced_form = ServicedForm()
     return render(request, 'gear/detail.html', {
-        'g': g
+        'g': g,
+        'serviced_form': serviced_form,
     })
+
+def add_service(request, gear_id):
+    serviced_form = ServicedForm(request.POST)
+    if serviced_form.is_valid():
+        new_service = serviced_form.save(commit=False)
+        new_service.g_id = gear_id
+        new_service.save()
+    return redirect('detail', gear_id=gear_id)
+    
+    
 
 class GearCreate(CreateView):
     model = Gear
