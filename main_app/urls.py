@@ -10,6 +10,9 @@ urlpatterns = [
     path('gear/create/', views.GearCreate.as_view(), name="gear_create"),
     path('gear/<int:pk>/update/', views.GearUpdate.as_view(), name="gear_update"),
     path('gear/<int:pk>/delete/', views.GearDelete.as_view(), name="gear_delete"),
+    path('gear/<int:gear_id>/add_gig/<int:gig_id>/', views.add_gig, name="add_gig"),
+    path('gear/<int:gear_id>/remove_gig/<int:gig_id>/', views.remove_gig, name="remove_gig"),
+
 
     path('gigs/', views.GigList.as_view(), name="gigs_index"),
     path('gigs/<int:pk>/', views.GigDetail.as_view(), name="gigs_detail"),

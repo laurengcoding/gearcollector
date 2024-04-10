@@ -21,9 +21,12 @@ def gear_index(request):
 def gear_detail(request, gear_id):
     g = Gear.objects.get(id=gear_id)
     serviced_form = ServicedForm()
+    current_gig_ids = g.gigs.all().values_list('id')
+    available_gigs = Gig.objects.exclude(id__in=current_gig_ids)
     return render(request, 'gear/detail.html', {
         'g': g,
         'serviced_form': serviced_form,
+        'available_gigs': available_gigs
     })
 
 def add_service(request, gear_id):
@@ -34,7 +37,13 @@ def add_service(request, gear_id):
         new_service.save()
     return redirect('detail', gear_id=gear_id)
     
-    
+def add_gig(request, gear_id, gig_id):
+    Gear.objects.get(id=gear_id).gigs.add(gig_id)
+    return redirect('detail', gear_id=gear_id)
+
+def remove_gig(request, gear_id, gig_id):
+    Gear.objects.get(id=gear_id).gigs.remove(gig_id)
+    return redirect('detail', gear_id=gear_id)
 
 class GearCreate(CreateView):
     model = Gear
