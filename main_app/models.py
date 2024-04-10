@@ -6,12 +6,40 @@ SERVICED = (
     ('N', 'No'),
 )
 
+STATES = (
+    ('NSW', 'New South Wales'),
+    ('VIC', 'Victoria'),
+    ('QLD', 'Queensland'),
+    ('SA', 'South Australia'),
+    ('WA', 'Western Australia'),
+    ('ACT', 'Australian Capital Territory'),
+    ('NT', 'Northern Territory'),
+    ('TAS', 'Tasmania')
+)
+
+class Gig(models.Model):
+    date = models.DateField()
+    name = models.CharField(max_length=256)
+    state = models.CharField(
+        max_length=3,
+        choices=STATES,
+        default=STATES[0][0],
+    )
+    city = models.CharField(max_length=256)
+
+    def get_absolute_url(self):
+        return reverse('gigs_detail', kwargs={'pk': self.id})
+    
+    def __str__(self):
+        return self.name
+
 class Gear(models.Model):
     brand = models.CharField(max_length=256)
     make = models.CharField(max_length=256)
     type = models.CharField(max_length=256)
     model = models.CharField(max_length=256)
     colour = models.CharField(max_length=256)
+    gigs = models.ManyToManyField(Gig)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'gear_id': self.id})

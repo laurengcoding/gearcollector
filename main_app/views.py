@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import Gear
+from .models import Gear, Gig
 
 from .forms import ServicedForm
 
@@ -45,4 +46,24 @@ class GearUpdate(UpdateView):
 
 class GearDelete(DeleteView):
     model = Gear
-    success_url = '/gear'
+    success_url = '/gear/'
+
+# Gig CRUD ########################
+    
+class GigList(ListView):
+    model = Gig
+
+class GigDetail(DetailView):
+    model = Gig
+
+class GigCreate(CreateView):
+    model = Gig
+    fields = '__all__'
+
+class GigUpdate(UpdateView):
+    model = Gig
+    fields = '__all__'
+
+class GigDelete(DeleteView):
+    model = Gig
+    success_url = '/gigs/'
