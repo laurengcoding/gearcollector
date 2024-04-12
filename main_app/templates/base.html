@@ -18,10 +18,15 @@
         </ul>
         <ul class="right">
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'gear_create' %}">Add Gear</a></li>
-          <li><a href="{% url 'index' %}">View All Gear</a></li>
-          <li><a href="{% url 'gigs_create' %}">Add a Gig</a></li>
-          <li><a href="{% url 'gigs_index' %}">View All Gigs</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'gear_create' %}">Add Gear</a></li>
+            <li><a href="{% url 'index' %}">View All Gear</a></li>
+            <li><a href="{% url 'gigs_create' %}">Add a Gig</a></li>
+            <li><a href="{% url 'gigs_index' %}">View All Gigs</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+
+          {% endif %}
         </ul>
       </div>
     </nav>

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from django.contrib.auth import login
+
 from .models import Gear, Gig
 
 from .forms import ServicedForm
@@ -48,6 +50,10 @@ def remove_gig(request, gear_id, gig_id):
 class GearCreate(CreateView):
     model = Gear
     fields = '__all__'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class GearUpdate(UpdateView):
     model = Gear

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 SERVICED = (
     ('Y', 'Yes'),
@@ -40,6 +41,7 @@ class Gear(models.Model):
     model = models.CharField(max_length=256)
     colour = models.CharField(max_length=256)
     gigs = models.ManyToManyField(Gig)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'gear_id': self.id})
