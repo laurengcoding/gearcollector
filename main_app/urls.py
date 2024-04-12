@@ -20,4 +20,6 @@ urlpatterns = [
     path('gigs/<int:pk>/update/', views.GigUpdate.as_view(), name="gigs_update"),
     path('gigs/<int:pk>/delete/', views.GigDelete.as_view(), name="gigs_delete"),
 
+    path('accounts/signup/', views.signup, name='signup'),
+
 ]

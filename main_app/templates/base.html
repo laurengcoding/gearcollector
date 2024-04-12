@@ -23,9 +23,13 @@
             <li><a href="{% url 'index' %}">View All Gear</a></li>
             <li><a href="{% url 'gigs_create' %}">Add a Gig</a></li>
             <li><a href="{% url 'gigs_index' %}">View All Gigs</a></li>
+            <li><form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">logout</button>
+          </form></li>
             {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
             <li><a href="{% url 'login' %}">Log In</a></li>
-
           {% endif %}
         </ul>
       </div>
